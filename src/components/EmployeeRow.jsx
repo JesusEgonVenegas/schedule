@@ -4,27 +4,25 @@ const EmployeeRow = ({ employee, daysOfTheWeek }) => {
     0,
   );
 
+  const dayData = daysOfTheWeek.map((_, idx) =>
+    employee["shifts:"].find((shift) => shift.day === idx),
+  );
+
   return (
     <tr>
       <th>
         {employee.name} ({totalHours} hrs)
       </th>
-      {daysOfTheWeek.map((_, idx) => {
-        const dayData = employee["shifts:"].find((shift) => shift.day === idx);
-
-        return (
-          <td
-            key={idx}
-            style={{
-              backgroundColor: dayData ? dayData.color : "transparent",
-            }}
-          >
-            {dayData
-              ? `${dayData.start_at} - ${dayData.end_at} ${dayData.role}`
-              : ""}
-          </td>
-        );
-      })}
+      {dayData.map((shift, idx) => (
+        <td
+          key={idx}
+          style={{
+            backgroundColor: shift ? shift.color : "transparent",
+          }}
+        >
+          {shift ? `${shift.start_at} - ${shift.end_at} ${shift.role}` : ""}
+        </td>
+      ))}
     </tr>
   );
 };
