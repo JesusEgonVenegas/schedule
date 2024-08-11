@@ -6,7 +6,6 @@ import ScheduleTable from "./assets/components/ScheduleTable";
 function App() {
   const [sortBy, setSortBy] = useState("first_name");
   const [scheduleData, setScheduleData] = useState([]);
-  const [hoursPerDay, setHoursPerDay] = useState({});
 
   useEffect(() => {
     const fetchScheduleData = async () => {
@@ -16,15 +15,6 @@ function App() {
         );
         const data = await response.json();
         setScheduleData(data);
-
-        // Calculate hours per day immediately after fetching the data
-        const hash = {};
-        data.forEach((employee) => {
-          employee["shifts:"].forEach((shift) => {
-            hash[shift.day] = (hash[shift.day] || 0) + shift.duration;
-          });
-        });
-        setHoursPerDay(hash);
       } catch (error) {
         console.error("Error fetching schedule data:", error);
       }
@@ -36,7 +26,7 @@ function App() {
   return (
     <div>
       <SortBySelect sortBy={sortBy} setSortBy={setSortBy} />
-      <ScheduleTable scheduleData={scheduleData} hoursPerDay={hoursPerDay} />
+      <ScheduleTable scheduleData={scheduleData} />
     </div>
   );
 }
