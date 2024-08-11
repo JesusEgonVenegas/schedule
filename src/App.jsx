@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import SortBySelect from "./assets/components/SortBySelect";
-import ScheduleTable from "./assets/components/ScheduleTable";
+import SortBySelect from "./components/SortBySelect";
+import ScheduleTable from "./components/ScheduleTable";
 
 function App() {
   const [sortBy, setSortBy] = useState("first_name");
